@@ -20,7 +20,6 @@ const App = ({match}) => {
           <Route path='/:query' component={Main} />
         </Switch>
 
-
       </div>
 
     </BrowserRouter>

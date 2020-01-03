@@ -1,17 +1,22 @@
 import React from 'react';
+import Picture from './Picture';
 import { render } from '@testing-library/react';
 import { Route, NavLink, Redirect } from 'react-router-dom';
 
 // Displays the search fields and the results, do not show anything if not passed a query.
-const Results = ({ query }) => {
-    console.log(query);
-    if (typeof (query) !== 'undefined') {
+const Results = ({ pics }) => {
+
+    if (typeof (pics) !== 'undefined') {
+        
         return (
+           
             <div className='photo-container'>
-                <h4>Showing results for {query} </h4>
+                {pics.map( (pic,index) => <Picture key={index} pic={pic}/>)}
+                              
             </div>
         );
     } else {
+        console.log('pics got null');
         return (null);
     }
 
