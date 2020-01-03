@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/index.css';
 import Main from './Main';
-
+import PageNotFound from './PageNotFound';
 import {
   BrowserRouter,
   Route,
@@ -17,7 +17,8 @@ const App = ({match}) => {
 
         <Switch>
           <Route exact path='/' component={Main} />
-          <Route path='/:query' component={Main} />
+          <Route exact path='/:query' component={Main} />
+          <Route component ={PageNotFound}/>
         </Switch>
 
       </div>
