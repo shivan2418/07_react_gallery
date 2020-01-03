@@ -1,11 +1,10 @@
 import React from 'react';
-import SearchBar from './SearchBar';
 import DefaultSearch from './DefaultSearch';
 import Results from './Results';
 
 class Main extends React.Component {
 
-
+    // Searchbar callback
     handleSubmit = (e) => {
         e.preventDefault();
         let query = this.query.value;
@@ -15,18 +14,22 @@ class Main extends React.Component {
 
     render() {
 
-        console.log(this.props);
-
         return (
-            <div>
-                <div className='searchbar'>
-                    <form onSubmit={this.handleSubmit}>
-                        <input type="text" placeholder="Query" ref={(input) => this.query = input} />
-                        <button type="submit">Go!</button>
-                    </form>
+            <div className='container'>
+
+                <div>
+                    {/* Searchbar */}
+                    <div className='searchbar'>
+                        <form onSubmit={this.handleSubmit}>
+                            <input type="text" placeholder="Query" ref={(input) => this.query = input} />
+                            <button type="submit">Go!</button>
+                        </form>
+                    </div>
+                    {/* Defaut Search Queries */}
+                    <DefaultSearch />
+                    {/* Search results */}
+                    <Results query={this.props.match.params.query} />
                 </div>
-                <DefaultSearch />
-                <Results query={this.props.match.params.query} />
             </div>
         );
     };
