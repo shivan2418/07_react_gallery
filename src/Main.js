@@ -9,25 +9,27 @@ class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: true
         };
     }
-    // Searchbar callback
+    // Searchbar callback, redirect the the browser
     handleSubmit = (e) => {
         e.preventDefault();
         let query = this.query.value;
-        console.log(`redirecting to ${query}`);
         this.props.history.push(query);
     }
 
     fetch_pics_from_api(query) {
-
+        // fetches a picture from the api and saves the imagies for that query in state.
         try {
             let search_query = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey.public}&text=${query}&per_page=24&page=1&format=json&nojsoncallback=1'`;
+
             fetch(search_query)
                 .then(response => response.json())
                 .then((responseData) => {
                     let current_state = this.state;
                     current_state[query] = responseData.photos.photo
+                    current_state.loading = false;
                     this.setState(current_state);
                 })
                 .catch(error => { console.log(error) });
@@ -39,36 +41,24 @@ class Main extends React.Component {
 
     componentDidMount() {
         terms.map(term => { this.fetch_pics_from_api(term) });
-        console.log('component did mount');
-        console.log(this.props.match);
     }
 
     render() {
-        console.log(this.state);
-        console.log('rendering...');
-
         // extract the search query from the props
         let query = this.props.match.params.query;
-
         // if there pics are not provided, then downloaded them now.
         if (typeof (this.state[query]) == 'undefined') {
-            console.log(`Fetch images for ${query}`)
+            this.state.loading = true;
             this.fetch_pics_from_api(query);
-        } else {
-            console.log(`${query} is not undefined`);
-
         }
-
         const pictures = this.state[query];
-        //pictures.map(p => {console.log(p.id)});
-        console.log(`now showing ${query}  and ${pictures}`);
 
         return (
             <div className='container'>
                 <div>
                     {/* Searchbar */}
-                    <div className='searchbar'>
-                        <form onSubmit={this.handleSubmit}>
+                    <div>
+                        <form className='search-form' onSubmit={this.handleSubmit}>
                             <input type="text" placeholder="Query" ref={(input) => this.query = input} />
                             <button type="submit">Go!</button>
                         </form>
@@ -76,11 +66,16 @@ class Main extends React.Component {
 
                     {/* Defaut Search Terms */}
                     <DefaultSearch terms={terms} />
-
-
                     {/* Search results */}
-                    <h4>{query}</h4>
-                    <Results pics={pictures} />
+                    <div>
+                        {(this.state.loading) ? <h1>Loading...</h1>
+                            :
+                            <div>
+                                <h4>Showing results for {query}</h4>
+                                <Results pics={pictures} />
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         );
