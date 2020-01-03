@@ -1,16 +1,17 @@
 import React from 'react';
+import terms from './searchTerms';
 
 const DefaultSearch = () => {
 
-return (
+    console.log(terms);
 
-<ul>
-    <li>a</li>
-    <li>b</li>
-    <li>c</li>
-</ul>
+    return (
 
-);
+        <ul>
+            {terms.map( (item,index) => <li key={index}>{item}</li>  )}
+        </ul>
+        
+    );
 
 }
 
