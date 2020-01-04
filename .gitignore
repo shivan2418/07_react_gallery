@@ -24,3 +24,6 @@ yarn-error.log*
 
 # credentials
 src/config.js
+
+# other
+src/sampleResp.js
