@@ -26,4 +26,4 @@ yarn-error.log*
 src/config.js
 
 # other
-src/sampleResp.js
+src/sampleResp.json
