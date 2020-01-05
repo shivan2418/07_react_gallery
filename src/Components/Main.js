@@ -1,8 +1,8 @@
 import React from 'react';
 import DefaultSearch from './DefaultSearch';
 import Results from './Results';
-import apiKey from './config';
-import terms from './searchTerms';
+import apiKey from '../config';
+import terms from '../searchTerms';
 
 class Main extends React.Component {
 

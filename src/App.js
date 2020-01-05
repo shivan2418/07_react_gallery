@@ -1,12 +1,11 @@
 import React from 'react';
 import './css/index.css';
-import Main from './Main';
-import PageNotFound from './PageNotFound';
+import Main from './Components/Main';
+import PageNotFound from './Components/PageNotFound';
 import {
   BrowserRouter,
   Route,
   Switch,
-  Redirect
 } from 'react-router-dom';
 
 const App = ({match}) => {

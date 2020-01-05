@@ -1,8 +1,6 @@
 import React from 'react';
 import Picture from './Picture';
-import { render } from '@testing-library/react';
 import NotFound from './NotFound';
-import { Route, NavLink, Redirect } from 'react-router-dom';
 
 // Displays the search fields and the results, do not show anything if not passed a query.
 const Results = ({ pics }) => {
