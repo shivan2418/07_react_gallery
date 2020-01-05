@@ -31,16 +31,20 @@ class Main extends React.Component {
                     current_state[query] = responseData.photos.photo
                     current_state.loading = false;
                     this.setState(current_state);
+                    return true;
                 })
-                .catch(error => { console.log(error) });
+                .catch(error => { 
+                    console.log(error);
+                    return false; });
         }
         catch (error) {
-            console.log(`Non network error: ${error}`)
+            console.log(`Non network error: ${error}`);
+            return false;
         }
     }
 
     componentDidMount() {
-        terms.map(term => { this.fetch_pics_from_api(term) });
+        terms.forEach(term => { this.fetch_pics_from_api(term) });
     }
 
     render() {
@@ -48,7 +52,10 @@ class Main extends React.Component {
         let query = this.props.match.params.query;
         // if there pics are not provided, then downloaded them now.
         if (typeof (this.state[query]) == 'undefined') {
-            this.state.loading = true;
+
+            this.setState( (state) => {
+                state["loading"]=true;
+            });
             this.fetch_pics_from_api(query);
         }
         const pictures = this.state[query];
