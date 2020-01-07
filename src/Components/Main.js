@@ -16,6 +16,7 @@ class Main extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         let query = this.query.value;
+        this.fetch_pics_from_api(query);
         this.props.history.push(query);
     }
 
@@ -24,6 +25,7 @@ class Main extends React.Component {
         try {
             let search_query = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey.public}&text=${query}&per_page=24&page=1&format=json&nojsoncallback=1'`;
 
+            this.setState({loading:true});
             fetch(search_query)
                 .then(response => response.json())
                 .then((responseData) => {
@@ -31,33 +33,26 @@ class Main extends React.Component {
                     current_state[query] = responseData.photos.photo
                     current_state.loading = false;
                     this.setState(current_state);
-                    return true;
                 })
-                .catch(error => { 
-                    console.log(error);
-                    return false; });
+                .catch(error => { console.log(error) });
         }
         catch (error) {
-            console.log(`Non network error: ${error}`);
-            return false;
+            console.log(`Non network error: ${error}`)
         }
     }
 
     componentDidMount() {
-        terms.forEach(term => { this.fetch_pics_from_api(term) });
+        terms.forEach(term => {this.fetch_pics_from_api(term)});
+        this.setState({loading:false});
     }
 
     render() {
         // extract the search query from the props
         let query = this.props.match.params.query;
         // if there pics are not provided, then downloaded them now.
-        if (typeof (this.state[query]) == 'undefined') {
-
-            this.setState( (state) => {
-                state["loading"]=true;
-            });
-            this.fetch_pics_from_api(query);
-        }
+        // if (typeof (this.state[query]) == 'undefined') {
+        //     this.fetch_pics_from_api(query);
+        // }
         const pictures = this.state[query];
 
         return (
