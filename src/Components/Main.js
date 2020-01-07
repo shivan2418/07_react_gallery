@@ -72,10 +72,8 @@ class Main extends React.Component {
                     <div>
                         {(this.state.loading) ? <h1>Loading...</h1>
                             :
-                            <div>
-                                <h4>Showing results for {query}</h4>
-                                <Results pics={pictures} />
-                            </div>
+                            <Results pics={pictures} query={query}/>
+                       
                         }
                     </div>
                 </div>
