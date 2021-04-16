@@ -1,3 +1,3 @@
-const terms = ['Apple','Bee','Crocs'];
+const terms = ['Japan','vacation','hiking'];
 
 export default terms;

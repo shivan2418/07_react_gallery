@@ -1,7 +1,6 @@
 import React from 'react';
 import DefaultSearch from './DefaultSearch';
 import Results from './Results';
-import apiKey from '../config';
 import terms from '../searchTerms';
 
 class Main extends React.Component {
@@ -21,9 +20,9 @@ class Main extends React.Component {
     }
 
     fetch_pics_from_api(query) {
-        // fetches a picture from the api and saves the imagies for that query in state.
+        // fetches a picture from the api and saves the images for that query in state.
         try {
-            let search_query = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey.public}&text=${query}&per_page=24&page=1&format=json&nojsoncallback=1'`;
+            let search_query = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.api_public}&text=${query}&per_page=24&page=1&format=json&nojsoncallback=1'`;
 
             this.setState({loading:true});
             fetch(search_query)
