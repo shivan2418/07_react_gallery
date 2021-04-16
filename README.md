@@ -3,7 +3,7 @@
 Uses React to fetch images from Flickr. 
 
 ### See live version
-[Live version hosted on Heroku](https://flickr-gallery-react.herokuapp.com/)
+[Live version hosted on Fleek / IPFS](https://morning-frog-7144.on.fleek.co/)
 
 ### How to run locally
 1. In the terminal type "npm install" and wait for it to install all the project dependencies.
